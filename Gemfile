@@ -41,4 +41,8 @@ end
 group :test do
   gem 'rspec'
   gem 'sshkey'
+
+  # Used by CI platform
+  gem 'rspec_junit_formatter'
+  gem 'simplecov', require: false
 end
