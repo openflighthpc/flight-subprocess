@@ -40,4 +40,5 @@ end
 
 group :test do
   gem 'rspec'
+  gem 'sshkey'
 end

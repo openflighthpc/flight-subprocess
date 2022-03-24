@@ -28,6 +28,7 @@
 module Flight
   module Subprocess
     autoload 'Local', File.expand_path('subprocess/local', __dir__)
+    autoload 'Remote', File.expand_path('subprocess/remote', __dir__)
   end
 end
 
