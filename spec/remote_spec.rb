@@ -41,7 +41,7 @@ RSpec.describe "Flight::Subprocess::Remote" do
     )
   }
 
-  # include_examples "when the cli tool echoes back stdin"
+  include_examples "when the cli tool echoes back stdin"
   include_examples "when the cli tool exceeds the timeout" do
     # Not sure why the process receives SIGILL.  It ought to be sent TERM/KILL
     # to be inline with Local.

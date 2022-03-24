@@ -56,7 +56,6 @@ module Flight
       end
 
       def run(cmd, stdin, &block)
-        # XXX Add support for wrting to stdin.
         @stdout = ""
         @stderr = ""
         @exit_code = nil
@@ -65,7 +64,7 @@ module Flight
 
         with_timout do
           install_public_ssh_key
-          run_command(cmd, &block)
+          run_command(cmd, stdin, &block)
         end
         pid = "<Unknown: Remote process>"
 
@@ -92,7 +91,7 @@ module Flight
         ).install
       end
 
-      def run_command(*cmd, &block)
+      def run_command(*cmd, stdin, &block)
         @logger.info("Starting SSH session #{cmd_debug(cmd)} keys=#{@keys.inspect}")
         Net::SSH.start(@host, @username, keys: @keys, timeout: @connection_timeout) do |ssh|
           ssh.open_channel do |channel|
@@ -120,6 +119,10 @@ module Flight
               channel.on_request("exit-signal") do |ch, data|
                 @exit_signal = data.read_long
                 @logger.debug("Received exit-signal: #{@exit_signal}")
+              end
+
+              if success && !stdin.nil?
+                ch.send_data(stdin)
               end
             end
           end
