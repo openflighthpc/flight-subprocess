@@ -1,5 +1,5 @@
 #==============================================================================
-# Copyright (C) 2022-present Alces Flight Ltd.
+# Copyright (C) 2020-present Alces Flight Ltd.
 #
 # This file is part of Flight Subprocess.
 #
@@ -23,13 +23,14 @@
 #
 # For more information on Flight Subprocess, please visit:
 # https://github.com/openflighthpc/flight-subprocess
-#==============================================================================
+#===============================================================================
 
 module Flight
   module Subprocess
-    autoload 'Local', File.expand_path('subprocess/local', __dir__)
+    class Result < Struct.new(:stdout, :stderr, :exitstatus, :pid)
+      def success?
+        exitstatus == 0
+      end
+    end
   end
 end
-
-require_relative 'subprocess/version'
-require_relative 'subprocess/result'
