@@ -52,4 +52,6 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.7'
 
   spec.add_runtime_dependency('net-ssh', '~> 6.1')
+  spec.add_runtime_dependency('ed25519', '~> 1.3.0')
+  spec.add_runtime_dependency('bcrypt_pbkdf', '~> 1.1.0')
 end

@@ -149,7 +149,7 @@ module Flight
       end
 
       def cmd_debug(cmd)
-        "(#{@username}@#{@host}) #{cmd.join(" ")}"
+        "(#{@username}@#{@host}) #{cmd.inspect}"
       end
     end
   end
