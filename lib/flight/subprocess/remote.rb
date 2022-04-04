@@ -28,6 +28,7 @@
 require 'etc'
 require 'timeout'
 require 'net/ssh'
+require 'shellwords'
 
 require_relative './ssh_key'
 
@@ -91,7 +92,8 @@ module Flight
         ).install
       end
 
-      def run_command(*cmd, stdin, &block)
+      def run_command(cmd, stdin, &block)
+        cmd = [] if cmd.nil?
         @logger.info("Starting SSH session #{cmd_debug(cmd)} keys=#{@keys.inspect}")
         Net::SSH.start(@host, @username, keys: @keys, timeout: @connection_timeout) do |ssh|
           ssh.open_channel do |channel|
@@ -145,7 +147,7 @@ module Flight
 
       def cmd_string(cmd)
         env_string = @env.map { |k, v| "#{k}=#{v}" }.join(" ")
-        [env_string, *cmd].join(" ")
+        [env_string, cmd.shelljoin].join(" ")
       end
 
       def cmd_debug(cmd)
