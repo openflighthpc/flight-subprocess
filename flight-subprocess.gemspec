@@ -53,6 +53,6 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency('net-ssh', '~> 6.1')
   spec.add_runtime_dependency('ed25519', '~> 1.3.0')
-  spec.add_runtime_dependency('x25519', '~> 1.0.9')
+  #spec.add_runtime_dependency('x25519', '~> 1.0.9')
   spec.add_runtime_dependency('bcrypt_pbkdf', '~> 1.1.0')
 end
